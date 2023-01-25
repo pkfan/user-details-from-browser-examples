@@ -3101,7 +3101,7 @@
       }
 
       for ([key, value] of Object.entries(getUserSystemDetails())) {
-        if (typeof key == "number" || typeof value == "string") {
+        if (typeof value == "number" || typeof value == "string") {
           pushAtDom(key, value);
         }
       }
