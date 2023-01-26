@@ -230,18 +230,12 @@
         </div>
       </div>
     </div>
-    <script
-      type="module"
-      src="https://unpkg.com/user-detail-from-browser@1.0.0/dist/user-detail-from-browser.min.js"
-    ></script>
+
     <script type="module">
       import {
         getUserSystemDetails,
         getUserCountryDetails,
-      } from "/user-detail-from-browser.min.js";
-
-      //   console.log("getUserCountryDetails", getUserCountryDetails());
-      //   console.log("getUserSystemDetails", getUserSystemDetails());
+      } from "https://unpkg.com/user-detail-from-browser@1.0.0/dist/user-detail-from-browser.min.js";
 
       const country = getUserCountryDetails();
 
@@ -294,11 +288,6 @@
 
       transformAndPushAtDom(getUserCountryDetails(), "#country-details-item");
       transformAndPushAtDom(getUserSystemDetails(), "#system-details-item");
-
-      console.log(
-        "result object === ",
-        JSON.stringify(getUserDetailsFromBrowser())
-      );
     </script>
   </body>
 </html>
