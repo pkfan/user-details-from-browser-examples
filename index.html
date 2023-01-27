@@ -235,7 +235,21 @@
       import {
         getUserSystemDetails,
         getUserCountryDetails,
-      } from "https://unpkg.com/user-detail-from-browser@1.0.1/dist/user-detail-from-browser.min.js";
+        getUserDetailsFromBrowser,
+      } from "https://unpkg.com/user-detail-from-browser/dist/user-detail-from-browser.min.js";
+
+      // console.log(
+      //   "getUserDetailsFromBrowser",
+      //   JSON.stringify(getUserDetailsFromBrowser())
+      // );
+      // console.log(
+      //   "getUserSystemDetails",
+      //   JSON.stringify(getUserSystemDetails())
+      // );
+      // console.log(
+      //   "getUserCountryDetails",
+      //   JSON.stringify(getUserCountryDetails())
+      // );
 
       const country = getUserCountryDetails();
 
@@ -245,7 +259,7 @@
         .querySelector("#flag-image")
         .setAttribute("src", country.country_flag_url);
       document.querySelector("#country-name").textContent =
-        country.country_common_name;
+        country.country_name;
 
       function pushAtDom(key, value, id = "#country-details-item", counter) {
         key = key.replaceAll("_", " ");
@@ -262,7 +276,7 @@
              class="w-full flex items-center border-t border-gray-400 font-bold text-lg text-gray-700  pr-3 w-full block transition duration-150 ${bgClass}"
             >
             <div class="w-[40%] capitalize py-4 px-6 text-red-700">${key}</div>
-            <div class="w-[60%] capitalize border-l border-gray-400 py-4 px-6">${value}</div>
+            <div class="w-[60%] border-l border-gray-400 py-4 px-6">${value}</div>
            </div>`
         );
       }
