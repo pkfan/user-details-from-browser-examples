@@ -200,7 +200,7 @@
               id="country-name"
               class="font-bold text-center text-lg text-purple-600 mt-2"
             >
-              Your Original IP address is :
+              Your IP address is :
               <span id="ip_address" class="text-red-600">N/A</span>
             </h6>
 
@@ -328,20 +328,20 @@
       transformAndPushAtDom(getUserCountryDetails(), "#country-details-item");
       transformAndPushAtDom(getUserSystemDetails(), "#system-details-item");
 
-      let isGetIpSuccessfully = null;
+      let hasIpSuccessfully = null;
       // run looping 5 times to fetch ip address from user system using browser
       function getIpAddressWithInterval() {
         getSystemIPs().then((ips) => {
           console.log("Client System Public Ips", ips);
           if (String(ips)) {
-            isGetIpSuccessfully = true;
-            transformAndPushAtDom(
-              { your_original_IP: ips },
-              "#country-details-item"
-            );
+            hasIpSuccessfully = ips;
+            // transformAndPushAtDom(
+            //   { your_original_IP: ips },
+            //   "#country-details-item"
+            // );
 
-            document.querySelector("#ip_address").textContent =
-              ips[0].ip_address;
+            // document.querySelector("#ip_address").textContent =
+            //   ips[0].ip_address;
           }
         });
       }
@@ -349,7 +349,13 @@
       let counter = 1;
 
       const clearId = setInterval(() => {
-        if (isGetIpSuccessfully) {
+        if (hasIpSuccessfully) {
+          transformAndPushAtDom(
+            { your_IPs: hasIpSuccessfully },
+            "#country-details-item"
+          );
+          document.querySelector("#ip_address").textContent =
+            hasIpSuccessfully[0].ip_address;
           clearInterval(clearId);
         }
         if (counter >= 11) {
@@ -360,7 +366,7 @@
         getIpAddressWithInterval();
         console.log("getIpAddressWithInterval");
         console.log("counter : ", counter);
-        console.log("isGetIpSuccessfully : ", isGetIpSuccessfully);
+        console.log("hasIpSuccessfully : ", hasIpSuccessfully);
         counter++;
       }, 1000);
     </script>
