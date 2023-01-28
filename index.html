@@ -328,17 +328,41 @@
       transformAndPushAtDom(getUserCountryDetails(), "#country-details-item");
       transformAndPushAtDom(getUserSystemDetails(), "#system-details-item");
 
-      getSystemIPs().then((ips) => {
-        console.log("Client System Public Ips", ips);
-        if (String(ips)) {
-          transformAndPushAtDom(
-            { your_original_IP: ips },
-            "#country-details-item"
-          );
+      let isGetIpSuccessfully = null;
+      // run looping 5 times to fetch ip address from user system using browser
+      function getIpAddressWithInterval() {
+        getSystemIPs().then((ips) => {
+          console.log("Client System Public Ips", ips);
+          if (String(ips)) {
+            isGetIpSuccessfully = true;
+            transformAndPushAtDom(
+              { your_original_IP: ips },
+              "#country-details-item"
+            );
 
-          document.querySelector("#ip_address").textContent = ips[0].ip_address;
+            document.querySelector("#ip_address").textContent =
+              ips[0].ip_address;
+          }
+        });
+      }
+
+      let counter = 1;
+
+      const clearId = setInterval(() => {
+        if (isGetIpSuccessfully) {
+          clearInterval(clearId);
         }
-      });
+        if (counter >= 11) {
+          document.querySelector("#ip_address").textContent =
+            "Error to get IPs from system";
+          clearInterval(clearId);
+        }
+        getIpAddressWithInterval();
+        console.log("getIpAddressWithInterval");
+        console.log("counter : ", counter);
+        console.log("isGetIpSuccessfully : ", isGetIpSuccessfully);
+        counter++;
+      }, 1000);
     </script>
   </body>
 </html>
