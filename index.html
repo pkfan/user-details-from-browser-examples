@@ -193,8 +193,16 @@
               id="country-name"
               class="font-bold text-center text-3xl text-gray-900"
             >
-              Pakistan (default)
+              N/A
             </h1>
+            <hr />
+            <h6
+              id="country-name"
+              class="font-bold text-center text-lg text-purple-600 mt-2"
+            >
+              Your Original IP address is :
+              <span id="ip_address" class="text-red-600">N/A</span>
+            </h6>
 
             <div class="my-5 px-6">
               <a
@@ -238,7 +246,9 @@
         getUserSystemDetails,
         getUserCountryDetails,
         getUserDetailsFromBrowser,
+        getSystemIPs,
       } from "https://unpkg.com/user-detail-from-browser@latest/dist/user-detail-from-browser.js";
+      // } from "/user-detail-from-browser.js";
 
       // console.log(
       //   "getUserDetailsFromBrowser",
@@ -263,8 +273,14 @@
       document.querySelector("#country-name").textContent =
         country.country_name;
 
-      function pushAtDom(key, value, id = "#country-details-item", counter) {
-        key = key.replaceAll("_", " ");
+      function pushAtDom(
+        key,
+        value,
+        id = "#country-details-item",
+        counter = 0
+      ) {
+        // key = key.replaceAll("_", " ");
+        key = key.split("_").join(" ");
 
         let bgClass = "bg-green-100";
 
@@ -290,11 +306,18 @@
         for ([key, value] of Object.entries(detailObject)) {
           if (typeof value == "object") {
             value = JSON.stringify(value, null, 4);
-            if (!(value[0] == "[")) {
+            if (value[0] == "[" && value.includes("{")) {
               value = value
                 .replace("{", "{<br>&nbsp;&nbsp;")
-                .replace("}", "<br>}")
-                .replaceAll('",', '",<br>&nbsp;&nbsp;');
+                .replace("}", "<br>}");
+              // .replaceAll('",', '",<br>&nbsp;&nbsp;');
+              value = value.split('",').join('",<br>&nbsp;&nbsp;');
+            } else if (!(value[0] == "[")) {
+              value = value
+                .replace("{", "{<br>&nbsp;&nbsp;")
+                .replace("}", "<br>}");
+              // .replaceAll('",', '",<br>&nbsp;&nbsp;');
+              value = value.split('",').join('",<br>&nbsp;&nbsp;');
             }
           }
           pushAtDom(key, value, id, counter);
@@ -304,6 +327,18 @@
 
       transformAndPushAtDom(getUserCountryDetails(), "#country-details-item");
       transformAndPushAtDom(getUserSystemDetails(), "#system-details-item");
+
+      getSystemIPs().then((ips) => {
+        console.log("Client System Public Ips", ips);
+        if (String(ips)) {
+          transformAndPushAtDom(
+            { your_original_IP: ips },
+            "#country-details-item"
+          );
+
+          document.querySelector("#ip_address").textContent = ips[0].ip_address;
+        }
+      });
     </script>
   </body>
 </html>
