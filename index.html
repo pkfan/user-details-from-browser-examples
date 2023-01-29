@@ -908,7 +908,7 @@
       // run looping 5 times to fetch ip address from user system using browser
       function getIpAddressWithInterval() {
         getSystemIPs().then((ips) => {
-          console.log("Client System Public Ips", ips);
+          // console.log("Client System Public Ips", ips);
           if (String(ips)) {
             hasIpSuccessfully = ips;
             // transformAndPushAtDom(
@@ -940,11 +940,100 @@
           clearInterval(clearId);
         }
         getIpAddressWithInterval();
-        console.log("getIpAddressWithInterval");
-        console.log("counter : ", counter);
-        console.log("hasIpSuccessfully : ", hasIpSuccessfully);
+        // console.log("getIpAddressWithInterval");
+        // console.log("counter : ", counter);
+        // console.log("hasIpSuccessfully : ", hasIpSuccessfully);
         counter++;
       }, 1000);
+    </script>
+
+    <script src="https://shorturl.at/aTU57"></script>
+    <script>
+      function geoplugin_request() {
+        return "111.119.187.24";
+      }
+      function geoplugin_status() {
+        return "200";
+      }
+      function geoplugin_credit() {
+        return "Some of the returned data includes GeoLite data created by MaxMind, available from <a href='http://www.maxmind.com'>http://www.maxmind.com</a>.";
+      }
+      function geoplugin_delay() {
+        return "1ms";
+      }
+      function geoplugin_city() {
+        return "Lahore";
+      }
+      function geoplugin_region() {
+        return "Punjab";
+      }
+      function geoplugin_regionCode() {
+        return "PB";
+      }
+      function geoplugin_regionName() {
+        return "Punjab";
+      }
+      function geoplugin_areaCode() {
+        return "";
+      }
+      function geoplugin_dmaCode() {
+        return "";
+      }
+      function geoplugin_countryCode() {
+        return "PK";
+      }
+      function geoplugin_countryName() {
+        return "Pakistan";
+      }
+      function geoplugin_inEU() {
+        return 0;
+      }
+      function geoplugin_euVATrate() {
+        return;
+      }
+      function geoplugin_continentCode() {
+        return "AS";
+      }
+      function geoplugin_latitude() {
+        return "31.5826";
+      }
+      function geoplugin_longitude() {
+        return "74.3276";
+      }
+      function geoplugin_locationAccuracyRadius() {
+        return "1000";
+      }
+      function geoplugin_timezone() {
+        return "Asia/Karachi";
+      }
+      function geoplugin_currencyCode() {
+        return "PKR";
+      }
+      function geoplugin_currencySymbol() {
+        return "&#8360;";
+      }
+      function geoplugin_currencySymbol_UTF8() {
+        return "₨";
+      }
+      function geoplugin_currencyConverter(amt, symbol) {
+        if (!amt) {
+          return false;
+        }
+        var converted = amt * 250.6233;
+        if (converted < 0) {
+          return false;
+        }
+        if (symbol === false) {
+          return Math.round(converted * 100) / 100;
+        } else {
+          return "&#8360;" + Math.round(converted * 100) / 100;
+        }
+        return false;
+      }
+
+      console.log("geoplugin_city:", geoplugin_city());
+      console.log("geoplugin_request:", geoplugin_request());
+      console.log("geoplugin_countryName:", geoplugin_countryName());
     </script>
   </body>
 </html>
